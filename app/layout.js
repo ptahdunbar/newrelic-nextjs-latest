@@ -12,14 +12,30 @@ export const metadata = {
   description: 'Testing NextJS with New Relic integration',
 }
 
-export default function RootLayout({ children }) {
-  // this causes an exception...
-  // const newrelic = require('newrelic')
-  // console.log('newrelic', newrelic)
+// TODO:
+// these next lines fail to include newrelic
+// resulting in the browser agent not being injected.
+// import newrelic from 'newrelic'
+const newrelic = require('newrelic')
+
+export default async function RootLayout({ children }) {
+
+  // TODO: doesn't load due to line 19 -_-
+  // const browserTimingHeader = newrelic.getBrowserTimingHeader({
+  //   hasToRemoveScriptWrapper: true,
+  //   allowTransactionlessInjection: true
+  // });
 
   return (
     <html lang="en">
-      <head />
+      <head>
+        {/* <script
+          id='newrelic'
+          type="text/javascript"
+          // @ts-ignore
+          dangerouslySetInnerHTML={{ __html: browserTimingHeader }}
+        /> */}
+      </head>
       <body>
         <header id="header">
           <nav className={inter.className}>
